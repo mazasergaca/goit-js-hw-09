@@ -8,6 +8,7 @@ const refs = {
   hours: document.querySelector('[data-hours]'),
   days: document.querySelector('[data-days]'),
   buttonStart: document.querySelector('[data-start]'),
+  inputEl: document.querySelector('#datetime-picker'),
 };
 
 let selectedDate = 0;
@@ -35,6 +36,7 @@ refs.buttonStart.addEventListener('click', onClickBtnStart);
 
 function onClickBtnStart(e) {
   refs.buttonStart.setAttribute('disabled', 'disabled');
+  refs.inputEl.setAttribute('disabled', 'disabled');
   const timerId = setInterval(() => {
     const currentDate = new Date();
     if (selectedDate.getTime() <= currentDate.getTime()) return clearInterval(timerId);

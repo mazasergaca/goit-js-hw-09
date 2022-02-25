@@ -5,24 +5,26 @@ formEl.addEventListener('submit', onClickCreateButton);
 
 function onClickCreateButton(e) {
   e.preventDefault();
-  const delayValue = Number(formEl.delay.value);
-  const stepValue = Number(formEl.step.value);
+
+  const delayValue = Number(formEl.elements.delay.value);
+  const stepValue = Number(formEl.elements.step.value);
+  const amountNotify = Number(formEl.elements.amount.value);
   let countPosition = 1;
   let countTotalDelay = delayValue;
-
+  formEl.reset();
   setTimeout(() => {
     createPromise(countPosition, countTotalDelay).then(onMakeOrderSuccess).catch(onMakeOrderError);
     countPosition++;
     countTotalDelay += stepValue;
 
     const timerId = setInterval(() => {
-      if (Number(formEl.amount.value) === countPosition - 1) return clearInterval(timerId);
+      if (amountNotify === countPosition - 1) return clearInterval(timerId);
       createPromise(countPosition, countTotalDelay)
         .then(onMakeOrderSuccess)
         .catch(onMakeOrderError);
       countPosition++;
       countTotalDelay += stepValue;
-    }, formEl.step.value);
+    }, stepValue);
   }, delayValue);
 }
 
